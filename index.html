@@ -155,7 +155,7 @@ var CONFIG = {
     --btn-ink: #14211a;
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  html { background: var(--bg); }
+  html { background: var(--bg); overflow-x: clip; }
   html, body { margin: 0; min-height: 100%; }
   body::before { content: ""; position: fixed; inset: 0; z-index: -1;
     background: radial-gradient(120% 90% at 50% 15%, var(--bg2), var(--bg) 70%); transition: background .4s; }
@@ -232,7 +232,7 @@ var CONFIG = {
   .no svg { width: 34%; fill: none; stroke: var(--verde2); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
   .no span { font-size: clamp(10.5px, 2.8vw, 14px); letter-spacing: .03em; font-weight: 600; }
 
-  .dica { position: absolute; left: -10%; right: -10%; top: calc(100% + 6px); font-size: 13px; color: var(--muted);
+  .dica { position: absolute; left: 0; right: 0; top: calc(100% + 6px); font-size: 13px; color: var(--muted);
     margin: 0; text-align: center; }
   .palco { margin-bottom: 40px; }
 
@@ -263,7 +263,7 @@ var CONFIG = {
     position: fixed; left: 50%; bottom: 0; width: min(100%, 560px);
     transform: translate(-50%, 105%);
     background: var(--card); color: var(--ink); border: 1px solid var(--line);
-    border-radius: 26px 26px 0 0; padding: 26px 22px calc(26px + env(safe-area-inset-bottom));
+    border-radius: 26px 26px 0 0; padding: 16px 22px calc(22px + env(safe-area-inset-bottom));
     transition: transform .4s cubic-bezier(.2, .8, .2, 1); z-index: 11; max-height: 90dvh; overflow: auto;
   }
   #cartao { visibility: hidden; }
@@ -271,15 +271,34 @@ var CONFIG = {
   html.aberto #fundo { opacity: 1; pointer-events: auto; }
   html.aberto #cartao { transform: translate(-50%, 0); }
   #cartao .fechar {
-    position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; border-radius: 50%;
+    position: absolute; top: 10px; right: 10px; width: 32px; height: 32px; border-radius: 50%;
     border: 1px solid var(--line); background: var(--card); color: var(--ink); font-size: 18px; cursor: pointer;
     z-index: 2;
   }
+  .mini { display: flex; align-items: center; justify-content: center; margin: 0 0 8px; }
+  .mini .lg, .mini .nd { flex: none; width: 66px; aspect-ratio: 1; border-radius: 50%; border: 1px solid var(--line);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; overflow: hidden; }
+  .mini .lg { background: #f0eeef; }
+  .mini .lg img { width: 84%; height: auto; display: block; }
+  .mini .nd { background: var(--node); color: var(--ink); }
+  .mini .nd svg { width: 30%; fill: none; stroke: var(--verde2); stroke-width: 1.6; stroke-linecap: round;
+    stroke-linejoin: round; }
+  .mini .nd span { font-size: 10px; font-weight: 600; letter-spacing: .02em; }
+  .mini .liga { position: relative; flex: 0 1 120px; min-width: 50px; height: 10px; }
+  .mini .liga svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .mini .liga line { stroke: var(--line); stroke-width: 1.4; stroke-dasharray: 4 4;
+    animation: fluxo2 3s linear infinite; }
+  .mini .liga i { position: absolute; top: 50%; left: 0; width: 7px; height: 7px; margin-top: -3.5px; border-radius: 50%;
+    background: var(--verde2); animation: corre 2.2s ease-in-out infinite; }
+  @keyframes fluxo2 { to { stroke-dashoffset: -16; } }
+  @keyframes corre { 0% { left: 0; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { left: calc(100% - 7px); opacity: 0; } }
+  html.pausa .mini .liga line, html.pausa .mini .liga i { animation-play-state: paused; }
   .rot { font-size: 11px; letter-spacing: .16em; margin-right: 48px; line-height: 1.5; text-transform: uppercase; color: var(--verde2); font-weight: 600; }
-  #cartao h2 { font-weight: 300; font-size: clamp(26px, 6.4vw, 34px); line-height: 1.12; margin: 8px 40px 8px 0; }
-  .intro { color: var(--muted); line-height: 1.55; margin: 0 0 6px; font-size: 15px; }
-  .trat { padding: 18px 0 4px; border-top: 1px solid var(--line); margin-top: 16px; }
-  .trat:first-of-type { margin-top: 12px; }
+  #cartao h2 { font-weight: 300; font-size: clamp(24px, 6vw, 30px); line-height: 1.12; margin: 4px 0 4px;
+    text-align: center; }
+  .intro { color: var(--muted); line-height: 1.5; margin: 0 0 4px; font-size: 14.5px; text-align: center; }
+  .trat { padding: 14px 0 2px; border-top: 1px solid var(--line); margin-top: 12px; }
+  .trat:first-of-type { margin-top: 10px; }
   .trat .foto { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 16px; display: block; }
   .trat h3 { font-weight: 400; font-size: 23px; line-height: 1.15; margin: 14px 0 6px; }
   .trat p { color: var(--muted); line-height: 1.55; margin: 0 0 10px; font-size: 15px; }
@@ -298,7 +317,7 @@ var CONFIG = {
 
   @media (min-width: 700px) {
     #cartao { bottom: auto; top: 50%; border-radius: 26px; transform: translate(-50%, -40%) scale(.96);
-      opacity: 0; pointer-events: none; transition: transform .35s, opacity .3s; padding: 30px 28px; }
+      opacity: 0; pointer-events: none; transition: transform .35s, opacity .3s; padding: 20px 28px; }
     html.aberto #cartao { transform: translate(-50%, -50%); opacity: 1; pointer-events: auto; }
   }
   @media (min-width: 700px) {
@@ -378,7 +397,7 @@ var CONFIG = {
 <div id="fundo"></div>
 <section id="cartao" role="dialog" aria-modal="true" aria-labelledby="ct">
   <button class="fechar" type="button" id="fechar" aria-label="Fechar">&times;</button>
-  <div class="rot" id="cr"></div>
+  <div class="mini" id="mini"></div>
   <h2 id="ct"></h2>
   <div id="cc"></div>
   <a class="btn" id="cz" target="_blank" rel="noopener">Agendar no WhatsApp</a>
@@ -445,8 +464,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function esc(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
 
+  function mini(icone, nome) {
+    $('mini').innerHTML = '<div class="lg"><img alt="' + CONFIG.nome + '" src="data:image/jpeg;base64,' + ARTE.logo + '"></div>'
+      + '<div class="liga"><svg aria-hidden="true"><line x1="0" y1="5" x2="100%" y2="5"/></svg><i></i></div>'
+      + '<div class="nd">' + icone + '<span>' + esc(nome) + '</span></div>';
+  }
   function abreCategoria(c) {
-    $('cr').textContent = c.rotulo;
+    mini(ICONES[c.icone], c.nome);
     $('ct').textContent = c.titulo;
     var h = '<p class="intro">' + esc(c.texto) + '</p>';
     c.tratamentos.forEach(function (t) {
@@ -465,7 +489,7 @@ document.addEventListener('DOMContentLoaded', function () {
     abre();
   }
   $('sobre').addEventListener('click', function () {
-    $('cr').textContent = CONFIG.etiqueta;
+    mini('<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.600"/><path d="M5 20c.6-3.800 3.400-6 7-6s6.400 2.200 7 6"/></svg>', 'Sobre mim');
     $('ct').textContent = CONFIG.sobreMim.titulo;
     $('cc').innerHTML = '<div class="sobre">' + CONFIG.sobreMim.html + '</div>';
     $('cz').href = zapLink(CONFIG.mensagemPadrao);
