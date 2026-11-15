@@ -29,6 +29,7 @@ var CONFIG = {
       + '+Francisco+Beltr%C3%A3o+-+PR,+85601-040,+Brasil',
   mensagemPadrao: 'Olá, Silvia! Vim pelo seu site e quero agendar um horário.',
 
+  /* endereço: não aparece mais no rodapé (o botão Como chegar abre o mapa) */
   endereco: 'Rua Octaviano Teixeira dos Santos, 1287 · Centro',
   cidade: 'Francisco Beltrão-PR · CEP 85601-040',
   modalidade: 'Atendimento presencial',
@@ -228,7 +229,9 @@ var CONFIG = {
   .no svg { width: 34%; fill: none; stroke: var(--verde2); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
   .no span { font-size: clamp(10.5px, 2.8vw, 14px); letter-spacing: .03em; font-weight: 600; }
 
-  .dica { font-size: 13px; color: var(--muted); margin: 8px 0 0; text-align: center; }
+  .dica { position: absolute; left: -10%; right: -10%; top: calc(100% + 6px); font-size: 13px; color: var(--muted);
+    margin: 0; text-align: center; }
+  .palco { margin-bottom: 40px; }
 
   footer { margin-top: auto; padding-top: 24px; text-align: center; width: 100%; }
   .contatos { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
@@ -295,6 +298,13 @@ var CONFIG = {
       opacity: 0; pointer-events: none; transition: transform .35s, opacity .3s; padding: 30px 28px; }
     html.aberto #cartao { transform: translate(-50%, -50%); opacity: 1; pointer-events: auto; }
   }
+  @media (min-width: 700px) {
+    body { display: grid; grid-template-rows: 1fr auto 1fr; justify-items: center; }
+    header { align-self: end; margin-top: 0; padding-bottom: 20px; }
+    h1 { font-size: clamp(34px, 6.4vh, 62px); margin: 8px 0 8px; }
+    .palco { margin: 0; width: min(92vw, 520px, 52vh); }
+    footer { margin-top: 0; align-self: start; padding-top: 44px; }
+  }
   @media (max-width: 699px) {
     h1, .etiqueta, .sub { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0;
       padding: 0; }
@@ -330,8 +340,8 @@ var CONFIG = {
     <g id="pontos"></g>
   </svg>
   <div class="centro" id="centro"></div>
+  <p class="dica" id="dica"></p>
 </main>
-<p class="dica" id="dica"></p>
 
 <footer>
   <div class="contatos">
@@ -391,8 +401,7 @@ document.addEventListener('DOMContentLoaded', function () {
   $('sub').textContent = CONFIG.sub;
   $('dica').textContent = CONFIG.dica;
   $('fecha').textContent = CONFIG.fechamento;
-  $('rodape').innerHTML = CONFIG.endereco + '<br>' + CONFIG.cidade + '<br>'
-    + '<span class="modal">' + CONFIG.modalidade + '</span>';
+  $('rodape').innerHTML = '<span class="modal">' + CONFIG.modalidade + '</span>';
   $('insta').href = CONFIG.instagram;
   $('mapa').href = CONFIG.mapa;
   function zapLink(msg) { return 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(msg); }
