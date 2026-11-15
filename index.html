@@ -274,15 +274,15 @@ var CONFIG = {
   html.aberto #fundo { opacity: 1; pointer-events: auto; }
   html.aberto #cartao { transform: translate(-50%, 0); }
   #cartao .fechar {
-    position: absolute; top: 10px; right: 22px; width: 32px; height: 32px; border-radius: 50%;
+    position: absolute; top: 20px; right: 22px; width: 32px; height: 32px; border-radius: 50%;
     border: 1px solid var(--line); background: var(--card); color: var(--ink); font-size: 18px; cursor: pointer;
     z-index: 2;
   }
-  .cab { position: sticky; top: 0; z-index: 3; background: var(--card); margin: 0 -22px; padding: 16px 22px 8px;
+  .cab { position: sticky; top: 0; z-index: 3; background: var(--card); margin: 0 -22px 14px; padding: 28px 22px 8px;
     border-radius: 26px 26px 0 0; }
   .cab::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 14px; pointer-events: none;
     background: linear-gradient(var(--card), transparent); }
-  @media (min-width: 700px) { .cab { margin: 0 -28px; padding: 20px 28px 8px; } }
+  @media (min-width: 700px) { .cab { margin: 0 -28px 14px; padding: 34px 28px 8px; } }
   .mini { display: flex; align-items: center; justify-content: center; margin: 0 0 8px; }
   .mini .lg, .mini .nd { flex: none; width: 66px; aspect-ratio: 1; border-radius: 50%; border: 1px solid var(--line);
     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; overflow: hidden; }
