@@ -337,9 +337,8 @@ var CONFIG = {
     footer { margin-top: 0; align-self: start; padding-top: 44px; }
   }
   @media (max-width: 699px) {
-    .sub { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0;
-      padding: 0; }
-    h1 { font-size: clamp(20px, 6.4vw, 32px); margin: 6px 0 0; text-align: center; white-space: nowrap; }
+    .sub { font-size: 13.5px; line-height: 1.4; margin: 6px auto 0; padding: 0; white-space: nowrap; }
+    h1 { font-size: clamp(22px, 9vw, 40px); margin: 6px 0 0; text-align: center; white-space: nowrap; }
     header { flex-direction: column; }
     body { padding: 8px 16px calc(10px + env(safe-area-inset-bottom)); }
     body { justify-content: center; }
@@ -442,11 +441,11 @@ document.addEventListener('DOMContentLoaded', function () {
   $('fecha').textContent = CONFIG.fechamento;
   /* mobile: titulos em uma linha so (reduz a fonte ate caber) */
   function ajustar() {
-    var els = [$('etiqueta'), document.querySelector('h1')];
+    var els = [$('etiqueta'), document.querySelector('h1'), $('sub')];
     els.forEach(function (el) {
       el.style.fontSize = '';
       if (window.innerWidth >= 700) return;
-      var max = el.parentNode.clientWidth - (el === els[0] ? 56 : 0);
+      var max = el.parentNode.clientWidth - (el === els[0] ? 56 : 4);
       var fs = parseFloat(getComputedStyle(el).fontSize);
       el.style.display = 'inline-block';
       while (el.scrollWidth > max && fs > 9) { fs -= 0.5; el.style.fontSize = fs + 'px'; }
