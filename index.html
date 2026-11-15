@@ -267,7 +267,7 @@ var CONFIG = {
     position: fixed; left: 50%; bottom: 0; width: min(100%, 560px);
     transform: translate(-50%, 105%);
     background: var(--card); color: var(--ink); border: 1px solid var(--line);
-    border-radius: 26px 26px 0 0; padding: 0 22px calc(22px + env(safe-area-inset-bottom));
+    border-radius: 26px 26px 0 0; padding: 0 22px calc(16px + env(safe-area-inset-bottom));
     transition: transform .4s cubic-bezier(.2, .8, .2, 1); z-index: 11; max-height: 90dvh; overflow: auto;
   }
   #cartao { visibility: hidden; }
@@ -320,14 +320,15 @@ var CONFIG = {
   html[data-theme="dark"] .frase { color: var(--verde2); }
   .agendar { display: inline-block; margin-top: 12px; font-size: 14px; font-weight: 600; color: var(--verde2);
     text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1px; }
-  #cartao > .btn { width: 100%; justify-content: center; margin-top: 22px; }
-  .sobre h3 { font-weight: 400; font-size: 19px; margin: 20px 0 6px; color: var(--verde2); }
-  .sobre p { color: var(--muted); line-height: 1.65; font-size: 15.5px; margin: 0 0 12px; }
+  #cartao > .btn { width: 100%; justify-content: center; margin-top: 10px; }
+  .sobre h3 { font-weight: 400; font-size: 19px; margin: 14px 0 4px; color: var(--verde2); }
+  .sobre p { color: var(--muted); line-height: 1.55; font-size: 15.5px; margin: 0 0 10px; }
+  .sobre p:last-child { margin-bottom: 0; }
   .sobre b { color: var(--ink); font-weight: 600; }
 
   @media (min-width: 700px) {
     #cartao { bottom: auto; top: 50%; border-radius: 26px; transform: translate(-50%, -40%) scale(.96);
-      opacity: 0; pointer-events: none; transition: transform .35s, opacity .3s; padding: 0 28px 22px; }
+      opacity: 0; pointer-events: none; transition: transform .35s, opacity .3s; padding: 0 28px 18px; }
     html.aberto #cartao { transform: translate(-50%, -50%); opacity: 1; pointer-events: auto; }
   }
   @media (min-width: 700px) {
