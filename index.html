@@ -155,9 +155,12 @@ var CONFIG = {
     --btn-ink: #14211a;
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { background: var(--bg); }
   html, body { margin: 0; min-height: 100%; }
+  body::before { content: ""; position: fixed; inset: 0; z-index: -1;
+    background: radial-gradient(120% 90% at 50% 15%, var(--bg2), var(--bg) 70%); transition: background .4s; }
   body {
-    background: radial-gradient(120% 90% at 50% 15%, var(--bg2), var(--bg) 70%);
+    background: transparent;
     color: var(--ink);
     font-family: var(--fonte);
     font-weight: 400;
@@ -308,9 +311,13 @@ var CONFIG = {
   @media (max-width: 699px) {
     h1, .etiqueta, .sub { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0;
       padding: 0; }
-    body { padding-top: 8px; }
+    body { padding: 8px 16px calc(10px + env(safe-area-inset-bottom)); }
+    body { justify-content: center; }
+    footer { margin-top: 0; padding-top: 6px; }
+    .fecha { margin-top: 14px; }
+    .rodape-txt { margin-top: 8px; }
     header { margin: 0; width: 100%; height: 0; }
-    .palco { margin-top: 12px; }
+    .palco { margin: 10px 0 34px; min-width: 250px; width: min(92vw, 540px, 52dvh); }
     #tema { top: 12px; right: 12px; width: 38px; height: 38px; }
   }
   @media (prefers-reduced-motion: reduce) {
