@@ -15,7 +15,8 @@
    ============================================================ */
 var CONFIG = {
   nome: 'Silvia Zuffo',
-  etiqueta: 'Massoterapeuta · Francisco Beltrão-PR',
+  profissao: 'Massoterapeuta',                 /* aparece em verde no topo */
+  localidade: 'Francisco Beltrão-PR',
   frase: 'Uma pausa que',
   fraseDestaque: 'transforma',
   sub: 'Bem-estar, autocuidado e beleza para a mulher que cuida de tudo.',
@@ -141,18 +142,18 @@ var CONFIG = {
     --fonte: "Josefin Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   }
   html[data-theme="dark"] {
-    --bg: #14211a;
-    --bg2: #1b2f24;
+    --bg: hsl(152, 30%, 10%);
+    --bg2: hsl(152, 34%, 18%);
     --ink: #eef1ec;
     --muted: #a9b8ae;
     --verde: #9fd2b6;
     --verde2: #6fbf98;
-    --menta: #25402f;
-    --card: #1b2f24;
-    --node: #203729;
+    --menta: hsl(152, 34%, 22%);
+    --card: hsl(152, 32%, 16%);
+    --node: hsl(152, 32%, 20%);
     --line: rgba(238, 241, 236, .22);
     --btn: #dbebe0;
-    --btn-ink: #14211a;
+    --btn-ink: hsl(152, 30%, 10%);
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html { background: var(--bg); overflow-x: clip; }
@@ -185,6 +186,7 @@ var CONFIG = {
   html[data-theme="dark"] #tema .lua { display: none; }
 
   header { text-align: center; margin-top: clamp(24px, 5vh, 54px); }
+  .etiqueta b { color: var(--verde2); font-weight: 600; }
   .etiqueta { font-size: clamp(10px, 2.9vw, 12px); letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
   h1 {
     font-weight: 300;
@@ -256,7 +258,7 @@ var CONFIG = {
   .rodape-txt .modal { display: inline-block; margin-top: 6px; padding: 3px 12px; border-radius: 99px;
     border: 1px solid var(--line); }
   .rodape-txt .modal::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 8px;
-    border-radius: 50%; background: #2fbf71; }
+    border-radius: 50%; background: var(--verde2); }
 
   #fundo { position: fixed; inset: 0; background: rgba(8, 18, 12, .6); opacity: 0; pointer-events: none;
     transition: opacity .3s; z-index: 10; }
@@ -314,6 +316,7 @@ var CONFIG = {
     border-radius: 50%; background: var(--verde2); }
   .frase { background: var(--menta); color: var(--verde); border-radius: 12px; padding: 11px 14px;
     font-style: italic; font-size: 14.5px; line-height: 1.45; }
+  html[data-theme="dark"] .frase { color: var(--verde2); }
   .agendar { display: inline-block; margin-top: 12px; font-size: 14px; font-weight: 600; color: var(--verde2);
     text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1px; }
   #cartao > .btn { width: 100%; justify-content: center; margin-top: 22px; }
@@ -334,15 +337,18 @@ var CONFIG = {
     footer { margin-top: 0; align-self: start; padding-top: 44px; }
   }
   @media (max-width: 699px) {
-    h1, .etiqueta, .sub { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0;
+    .sub { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0;
       padding: 0; }
+    h1 { font-size: clamp(26px, 8vw, 34px); margin: 6px 0 0; text-align: center; }
+    header { flex-direction: column; }
     body { padding: 8px 16px calc(10px + env(safe-area-inset-bottom)); }
     body { justify-content: center; }
     footer { margin-top: 0; padding-top: 6px; }
     .fecha { margin-top: 14px; }
     .rodape-txt { margin-top: 8px; }
-    header { margin: 0; width: 100%; height: 0; }
-    .palco { margin: 10px 0 34px; min-width: 250px; width: min(92vw, 540px, 52dvh); }
+    header { margin: 0; width: 100%; min-height: 38px; display: flex; align-items: center; justify-content: center; }
+    .etiqueta { padding: 0 52px; text-align: center; font-size: 12px; letter-spacing: .2em; text-wrap: balance; }
+    .palco { margin: 10px 0 34px; min-width: 250px; width: min(92vw, 540px, 47dvh); }
     #tema { top: 12px; right: 12px; width: 38px; height: 38px; }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -397,7 +403,6 @@ var CONFIG = {
     </button>
   </div>
   <p class="fecha" id="fecha"></p>
-  <p class="rodape-txt" id="rodape"></p>
 </footer>
 
 <div id="fundo"></div>
@@ -429,13 +434,12 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
   document.title = CONFIG.nome + ' · Massoterapeuta · Francisco Beltrão';
-  $('etiqueta').textContent = CONFIG.etiqueta;
+  $('etiqueta').innerHTML = '<b>' + CONFIG.profissao + '</b> · ' + CONFIG.localidade;
   $('frase').textContent = CONFIG.frase;
   $('destaque').textContent = CONFIG.fraseDestaque;
   $('sub').textContent = CONFIG.sub;
   $('dica').textContent = CONFIG.dica;
   $('fecha').textContent = CONFIG.fechamento;
-  $('rodape').innerHTML = '<span class="modal">' + CONFIG.modalidade + '</span>';
   $('insta').href = CONFIG.instagram;
   $('mapa').href = CONFIG.mapa;
   function zapLink(msg) { return 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(msg); }
